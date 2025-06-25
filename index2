@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dog Tier List</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+    }
+
+    .tier-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .tier {
+      border: 2px solid #aaa;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fff;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    .tier-label {
+      font-weight: bold;
+      margin-right: 10px;
+      width: 50px;
+    }
+
+    .dog {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: grab;
+    }
+
+    .dog:hover {
+      transform: scale(1.05);
+    }
+
+    .dogs-pool {
+      margin-top: 30px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🐶 จัด Tier สายพันธุ์หมาน่าเลี้ยง</h1>
+
+  <div class="dogs-pool" id="pool">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Golden_Retriever_003.jpg" class="dog" draggable="true" id="dog1" alt="Golden">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Shiba_Inu_Brocken_Inaglory.jpg" class="dog" draggable="true" id="dog2" alt="Shiba">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Pomeranian.jpg" class="dog" draggable="true" id="dog3" alt="Pomeranian">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/French_Bulldog_Fawn.jpg" class="dog" draggable="true" id="dog4" alt="French Bulldog">
+  </div>
+
+  <div class="tier-container">
+    <div class="tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <span class="tier-label">S</span>
+    </div>
+    <div class="tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <span class="tier-label">A</span>
+    </div>
+    <div class="tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <span class="tier-label">B</span>
+    </div>
+    <div class="tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <span class="tier-label">C</span>
+    </div>
+    <div class="tier" ondrop="drop(event)" ondragover="allowDrop(event)">
+      <span class="tier-label">D</span>
+    </div>
+  </div>
+
+  <script>
+    // ให้ลากวางได้
+    const dogs = document.querySelectorAll('.dog');
+    dogs.forEach(dog => {
+      dog.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text', e.target.id);
+      });
+    });
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const dog = document.getElementById(data);
+      ev.target.appendChild(dog);
+    }
+  </script>
+</body>
+</html>
